@@ -1,0 +1,68 @@
+@let r = registration();
+
+@if (r) {
+  <div class="p-6 bg-white rounded-xl shadow-md space-y-4">
+    <h1 class="text-xl font-semibold text-gray-800">
+      Registrierung
+    </h1>
+
+    <div class="text-sm text-gray-600 front-medium">
+      <span class="font-medium">Kurs: </span>
+      <a [routerLink]="['/subjects', r.appointment.course?.subject?.id,'courses', r.appointment.course?.id]"
+        class="hover:text-emerald-600 underline">
+        {{ r.appointment.course?.title }}
+      </a>
+    </div>
+
+    <div class="text-sm text-gray-600 font-medium">
+      <label class="font-medium mr-2">Status:</label>
+      @if(isTeacher()) {
+        <!-- 2 way data binding, wenn sich wert im dropdown ändert, dann auch in daten, bei auswahl von item wird r.status direkt aktualisiert und es ruft updateStatus auf, um änderung zu verarbeiten -->
+        <select [(ngModel)]="r.status" (change)="updateStatus(r)" class="border rounded px-2 py-1">
+          <option value="requested">Angefragt</option>
+          <option value="accepted">Angenommen</option>
+          <option value="denied">Abgelehnt</option>
+          <option value="completed">Abgeschlossen</option>
+          <option value="missed">Versäumt</option>
+        </select>
+      }
+      @else {
+          {{ r.status_label }}
+      }
+    </div>
+
+
+    @if(isTeacher()) {
+      <div class="text-sm text-gray-600">
+        <span class="font-medium">Teilnehmer:in:</span> {{ r.student.firstname }} {{ r.student.lastname }}
+      </div>
+    }
+    @if(!isTeacher()) {
+      <div class="text-sm text-gray-600">
+        <span class="font-medium">Dein:e Tutor:in:</span> {{ r.appointment.course?.teacher?.firstname }} {{ r.appointment?.course?.teacher?.lastname }}
+      </div>
+    }
+
+    <div class="text-sm text-gray-600">
+      <span class="font-medium">Termin:</span>
+      <div><span class="font-medium">Von </span>{{ r.appointment.start_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr </div>
+      <div><span class="font-medium">Bis </span>{{ r.appointment.end_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr</div>
+    </div>
+
+    <div class="text-sm text-gray-600">
+      <span class="font-medium">Preis: </span>{{ r.appointment.price !== null ? r.appointment.price + ' €' : 'Kostenlos' }}
+    </div>
+
+    @if (r.comment) {
+      <div class="text-sm text-gray-600">
+        <span class="font-medium">Kommentar:</span> {{ r.comment }}
+      </div>
+    }
+  </div>
+}
+
+<div class="pt-6">
+  <button [routerLink]="'/registrations'" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-300 text-white rounded-xl shadow">
+    Zurück zur Liste
+  </button>
+</div>

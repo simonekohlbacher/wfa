@@ -1,0 +1,45 @@
+@let c = course();
+
+@if(c){
+  <div class="relative max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6">
+    <button *ngIf="isLoggedIn() && isTeacher()"
+      class="absolute top-4 right-4 bg-red-300 text-white px-4 py-2 rounded hover:bg-red-400"
+      (click)="deleteCourse()">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+    <h1 class="text-4xl font-bold text-gray-800">{{ c.title }}</h1>
+    <p class="text-gray-700 text-base leading-relaxed">{{ c.description }}</p>
+
+    <h4 class="text-lg font-semibold text-gray-800">Termine</h4>
+
+    @if (isLoggedIn() && isTeacher()) {
+      <button (click)="addAppointment()"
+        class="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded shadow transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Termin hinzufügen
+      </button>
+    }
+
+    @if (showForm) {
+      <nh-appointment-form (saved)="this.showForm= false" ></nh-appointment-form>
+    }
+
+    <div class="text-gray-700">
+      @if(c.appointments?.length) {
+        <nh-appointment-list/>
+      }
+      @else {
+        <p class="text-sm text-gray-500">Keine freien Termine verfügbar.</p>
+      }
+    </div>
+
+    <div class="pt-6">
+     <button [routerLink]="['/subjects', c.subject?.id]" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-300 text-white rounded-xl shadow">
+        Zurück zum Fach {{ c.subject?.title }}
+      </button>
+    </div>
+
+  </div>
+}

@@ -1,0 +1,41 @@
+<form
+  class="my-12 p-6 bg-white rounded-2xl shadow-lg space-y-6" [formGroup]="subjectForm" (ngSubmit)="submitForm()">
+  <h2 class="text-2xl">Fach hinzufügen oder bearbeiten</h2>
+  <div>
+    <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Titel*</label>
+    @if (errors['title']){
+      <div class="text-red-400">{{errors['title']}}</div>
+    }
+    <input id="title" type="text" placeholder="Fachtitel" formControlName="title" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400"/>
+  </div>
+  <div>
+    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Beschreibung</label>
+    <textarea id="description" placeholder="Beschreibung" formControlName="description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400 resize-none"></textarea>
+  </div>
+  <div class="field">
+    <label class="block text-sm font-medium text-gray-700 mb-2">Kurse</label>
+    <div formArrayName="courses" class="space-y-4">
+      @for(control of courses.controls; let i=$index, l=$last; track i){
+        <div class="fields" [formGroupName]="i">
+          <input type="hidden" formControlName="id" />
+          <label for="courseTitle" class="block text-sm font-medium text-gray-700 mb-1">Kurs-Titel*</label>
+          <input id="courseTitle" type="text" placeholder="Kurstitel" formControlName="title" class="flex-grow px-3 py-2 mr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"/>
+          <label for="courseDescription" class="block text-sm font-medium text-gray-700 mb-1">Beschreibung</label>
+          <textarea id="courseDescription" placeholder="Beschreibung" rows="4" cols="50" formControlName="description" class="flex-grow px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-400"></textarea>
+          @if(l){
+            <button type="button" (click)="addMoreCourses()" class="ml-8 p-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow" aria-label="Kurs hinzufügen">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+  <div class="text-right">
+    <button type="submit" class="px-6 py-2 bg-emerald-600 text-white font-semibold rounded-xl shadow hover:bg-emerald-500 disabled:bg-gray-400 disabled:cursor-not-allowed" [disabled]="subjectForm.invalid">
+      Speichern
+    </button>
+  </div>
+</form>

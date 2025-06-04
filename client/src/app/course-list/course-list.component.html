@@ -1,0 +1,7 @@
+<div class="list flex flex-col gap-12 mt-12">
+  @for (course of courses(); track course) {
+    <a [routerLink]="['/subjects', subjectId(), 'courses', course.id]" class="block rounded-lg hover:shadow-xl transition-all">
+      <nh-course-list-item [course]="course"/>
+    </a>
+  }
+</div>

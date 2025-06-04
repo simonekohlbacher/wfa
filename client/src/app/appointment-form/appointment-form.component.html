@@ -1,0 +1,20 @@
+<form class="mb-12 space-y-3" [formGroup]="appointmentForm" (ngSubmit)="submitForm()">
+  <label for="start_at" class="text-sm font-medium text-gray-700">Startzeit*</label>
+  <input id="start_at" type="datetime-local" formControlName="start_at" [min]="minDateTime" class="border p-2 rounded w-full" placeholder="Startzeit" />
+  @if (errors['start_at']){
+    <div class="text-red-400">{{errors['start_at']}}</div>
+  }
+  <label for="end_at" class="text-sm font-medium text-gray-700">Endzeit*</label>
+  <input id="end_at" type="datetime-local" formControlName="end_at" [min]="minDateTime" class="border p-2 rounded w-full" placeholder="Endzeit" />
+  @if (errors['end_at']){
+    <div class="text-red-400">{{errors['end_at']}}</div>
+  }
+  <label for="price" class="text-sm font-medium text-gray-700">Kursgebühr</label>
+  <input id="price" type="number" formControlName="price" class="border p-2 rounded w-full" placeholder="Preis (€)" />
+  @if (errors['price']){
+    <div class="text-red-400">{{errors['price']}}</div>
+  }
+  <button type="submit" [disabled]="appointmentForm.invalid" class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-600 disabled:bg-gray-400 disabled:cursor-not-allowed">
+    Termin speichern
+  </button>
+</form>

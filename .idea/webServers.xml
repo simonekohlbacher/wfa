@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="72fc1515-9041-4e10-8677-ec58d6913de4" name="HETZNER" url="http://nachhilfe25.s2210456017.student.kwmhgb.at/">
+        <fileTransfer rootFolder="/usr/home/sstudnnr/public_html/nachhilfe25/nachhilfeServer" accessType="SFTP" host="s2210456017.student.kwmhgb.at" port="222" sshConfigId="89b34b68-2d0c-4977-8b10-8aea71915ab7" sshConfig="sstudnnr@s2210456017.student.kwmhgb.at:222 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

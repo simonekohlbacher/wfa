@@ -1,0 +1,22 @@
+@if (isTeacher()) {
+  <h1 class="text-4xl mb-12">Deine Fächer</h1>
+  <button class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-300" (click)="addSubject()">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+  @if(showForm) {
+    <nh-subject-form (saved)="reloadSubjects()"></nh-subject-form>
+  }
+} @else {
+  <h1 class="text-4xl">Alle Fächer</h1>
+}
+
+@if(subjects().length) {
+  <div class="list flex flex-col gap-12 mt-12 w-300">
+    @for (subject of subjects(); track subject) {
+      <a class="item nh-subject-list-item" [subject]="subject" [routerLink]="['/subjects', subject.id]"></a>
+    }
+  </div>
+} @else {
+  <p class="mt-12 text-gray-500">Noch keine Fächer angelegt</p>
+}
+

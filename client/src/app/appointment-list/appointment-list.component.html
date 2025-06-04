@@ -1,0 +1,9 @@
+<div class="list flex flex-col gap-4 mt-2">
+  @for (appointment of appointments(); track appointment) {
+    <!-- beim schicken einer registration anfrage einfach appointments neu laden -->
+      <nh-appointment-list-item [appointment]="appointment" (updated)="loadAppointments()"></nh-appointment-list-item>
+    }
+  @if (isLoggedIn() && !isTeacher()) {
+    <p class="mt-8">Kein passender Termin dabei? Schreib die/den Tutor:in an. Diese findest du im jeweiligen Fach des Kurses.</p>
+  }
+</div>

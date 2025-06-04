@@ -1,0 +1,62 @@
+@let a = appointment();
+@let sameDay = (a.start_at | date: 'dd.MM.yyyy') === (a.end_at | date: 'dd.MM.yyyy');
+
+<div class="block rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all">
+  <div class="p-4 flex items-center justify-between cursor-pointer" (click)="isOpen.set(!isOpen())">
+    <div>
+      @if(sameDay) {
+        {{ a.start_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr – {{ a.end_at | date: 'HH:mm' }} Uhr
+      }
+      @else {
+        {{ a.start_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr – {{ a.end_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr
+      }
+    </div>
+    <svg
+      class="w-5 h-5 text-gray-500 transform transition-transform duration-300"
+      [class.rotate-90]="isOpen()"
+      fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 5l7 7-7 7"></path>
+    </svg>
+  </div>
+
+  @if (isOpen()) {
+    <div class="p-4 bg-gray-50 border-t text-sm">
+      <div>
+        <span class="font-medium">Kursgebühr: </span>{{ a.price !== null ? a.price + ' €' : 'Kostenlos' }}
+      </div>
+
+      @if(isLoggedIn() && isTeacher()) {
+        <div class="mt-6">
+          <button class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-500 mr-4" (click)="editAppointment()">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button class="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-300" (click)="deleteAppointment()">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      }
+
+      @if(showForm) {
+        <div class="p-4 bg-white border rounded shadow-md w-72 right-0 absolute z-10">
+          <h4 class="text-l font-bold mb-4">Termin bearbeiten</h4>
+          <nh-appointment-form [appointmentId]="a.id" (saved)="this.showForm = false;"/>
+        </div>
+      }
+
+      @if (isLoggedIn() && !isTeacher()) {
+        <div class="flex flex-col justify-center">
+          <h2 class="text-l mt-8">Jetzt gleich anmelden:</h2>
+          <form class="mb-2" [formGroup]="getFormGroup(a.id)" (ngSubmit)="createRegistration(a.id)">
+            <textarea formControlName="comment" class="mt-2 border p-2 rounded w-full" placeholder="Kommentar (optional)" rows="3"></textarea>
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-600">
+              Anmelden
+            </button>
+          </form>
+        </div>
+      }
+    </div>
+
+  }
+</div>
+
+

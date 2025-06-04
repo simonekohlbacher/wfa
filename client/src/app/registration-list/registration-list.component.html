@@ -1,0 +1,95 @@
+<div class="list flex flex-col gap-12 mt-12">
+  <h1 class="text-4xl">Deine Registrierungen</h1>
+  <p>
+    Hier siehst du deine aktuellen Registrierungen.
+    <span *ngIf="!isTeacher()">
+      Wenn du dich für einen Kurs zu einem Termin registrieren willst, kannst du dies direkt beim jeweiligen Kurs tun.
+    </span>
+  </p>
+
+  <!-- Angefragt -->
+  <div class="space-y-2">
+    <!-- wenn showRequest true, also ausgeklappt dass rotiere das icon -->
+    <button (click)="showRequested.set(!showRequested())" class="flex items-center gap-2 text-left text-xl font-bold text-gray-800 hover:text-emerald-600 transition">
+      <svg
+        class="w-5 h-5 text-gray-500 transform transition-transform duration-300"
+        [class.rotate-90]="showRequested()"
+        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 5l7 7-7 7"></path>
+      </svg>
+      <span>Angefragt</span>
+    </button>
+
+    <div *ngIf="showRequested()" class="pl-7 mt-2 space-y-3">
+      @if(requestedRegistrations.length)
+      {
+        @for(reg of requestedRegistrations; track reg.id) {
+          <a class="nh-registration-list-item block rounded-lg hover:shadow-xl transition-all"
+             [routerLink]="['/registrations', reg.id]" [registration]="reg">
+          </a>
+        }
+      } @else {
+        <p class="text-gray-500">Keine angefragten Registrierungen.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Gebucht -->
+  <div class="space-y-2">
+    <button
+      (click)="showConfirmed.set(!showConfirmed())"
+      class="flex items-center gap-2 text-left text-xl font-bold text-gray-800 hover:text-emerald-600 transition">
+      <svg
+        class="w-5 h-5 text-gray-500 transform transition-transform duration-300"
+        [class.rotate-90]="showConfirmed()"
+        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 5l7 7-7 7"></path>
+      </svg>
+      <span>Gebucht</span>
+    </button>
+
+    <div *ngIf="showConfirmed()" class="pl-7 mt-2 space-y-3">
+      @if(confirmedRegistrations.length)
+      {
+        @for(reg of confirmedRegistrations; track reg.id) {
+          <a class="nh-registration-list-item block rounded-lg hover:shadow-xl transition-all"
+             [routerLink]="['/registrations', reg.id]" [registration]="reg">
+          </a>
+        }
+      } @else {
+        <p class="text-gray-500">Keine gebuchten Registrierungen.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Abgeschlossen -->
+  <div class="space-y-2">
+    <button
+      (click)="showCompleted.set(!showCompleted())"
+      class="flex items-center gap-2 text-left text-xl font-bold text-gray-800 hover:text-emerald-600 transition">
+      <svg
+        class="w-5 h-5 text-gray-500 transform transition-transform duration-300"
+        [class.rotate-90]="showCompleted()"
+        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 5l7 7-7 7"></path>
+      </svg>
+      <span>Bereits abgeschlossen</span>
+    </button>
+
+    <div *ngIf="showCompleted()" class="pl-7 mt-2 space-y-3">
+      @if(completedRegistrations.length)
+      {
+        @for(reg of completedRegistrations; track reg.id) {
+          <a class="nh-registration-list-item block rounded-lg hover:shadow-xl transition-all"
+             [routerLink]="['/registrations', reg.id]" [registration]="reg">
+          </a>
+        }
+      } @else {
+        <p class="text-gray-500">Keine abgeschlossenen Registrierungen.</p>
+      }
+    </div>
+  </div>
+</div>

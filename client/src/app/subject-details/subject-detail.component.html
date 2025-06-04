@@ -1,0 +1,54 @@
+@let s = subject();
+@if(s){
+  <div class="max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6 relative">
+    @if(isLoggedIn() && isTeacher()) {
+      <div class="relative">
+        <div class="absolute top-4 right-4 flex flex-col space-y-2">
+          <button class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-500" (click)="editSubject()">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button class="bg-red-300 text-white px-4 py-2 rounded hover:bg-red-300" (click)="deleteSubject()">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      @if(showForm) {
+        <nh-subject-form (saved)="loadSubject();"></nh-subject-form>
+      }
+    }
+    <h1 class="text-4xl font-bold text-gray-800">{{ s.title }}</h1>
+    <p class="text-gray-700 text-base leading-relaxed mr-52">{{ s.description }}</p>
+
+    @if(s.teacher) {
+      <div class="border-t border-gray-200 pt-4">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Dein:e Tutor:in</h2>
+        <div class="flex items-center justify-between text-gray-600">
+          <div class="space-y-1">
+            <p><span class="font-medium">Name:</span> {{ s.teacher.firstname }} {{ s.teacher.lastname }}</p>
+            <p><span class="font-medium">Email:</span> {{ s.teacher.email }}</p>
+            <p><span class="font-medium">Telefon:</span> {{ s.teacher.telephone }}</p>
+            <p><span class="font-medium">Ausbildung:</span> {{ s.teacher.education }}</p>
+          </div>
+          <img [src]="s.teacher.avatar" alt="Tutor:in" class="w-50 h-50 ml-6">
+        </div>
+      </div>
+    }
+
+    <div class="border-t border-gray-200 pt-4">
+      <h2 class="text-2xl font-semibold text-gray-700 mb-2">Kurse</h2>
+      @if (s.courses.length) {
+        <!-- reloadTrigger mit boolean (benutzerdefiniertes Input-Property) an kind, also kurs liste weitergeben -->
+        <nh-course-list [subjectId]="subject()?.id" [reloadTrigger]="reloadCourses"></nh-course-list>
+      } @else {
+        <p>Noch keine Kurse verfügbar</p>
+      }
+    </div>
+
+    <div class="pt-6">
+      <button [routerLink]="'/subjects'" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-300 text-white rounded-xl shadow">
+        Zurück zur Übersicht
+      </button>
+    </div>
+
+  </div>
+}

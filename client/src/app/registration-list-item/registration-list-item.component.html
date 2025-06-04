@@ -1,0 +1,30 @@
+@let r = registration();
+
+<div class="p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-50 transition-all ease-in-out duration-300 space-y-4">
+  <h3 class="text-xl font-semibold text-gray-900 hover:text-emerald-600 transition-colors duration-300">
+    {{ r.appointment.course?.title }}
+  </h3>
+  <div class="text-sm text-gray-600 flex flex-col gap-1">
+    <div><span class="font-medium">Von </span>{{ r.appointment.start_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr </div>
+    <div><span class="font-medium">Bis </span>{{ r.appointment.end_at | date: 'dd.MM.yyyy, HH:mm' }} Uhr</div>
+  </div>
+
+  <div class="text-sm text-gray-600 font-medium">
+    <span class="font-medium">Status: </span>
+    <span [class]="{
+      'text-yellow-600': r.status === 'requested',
+      'text-green-600': r.status === 'accepted',
+      'text-red-600': r.status === 'denied',
+      'text-black-600': r.status === 'completed' || r.status === 'missed'
+    }">
+  {{ r.status_label }}
+  </span>
+  </div>
+
+
+
+
+
+
+
+</div>

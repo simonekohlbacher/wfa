@@ -1,0 +1,108 @@
+<div class="flex items-center justify-between px-4 py-12 gap-34 text-gray-800 mb-20">
+  <div class="max-w-4xl text-left">
+    @if (isLoggedIn()) {
+      <h1 class="text-4xl font-semibold text-gray-700">Willkommen, {{ getCurrentUser().firstName }}!</h1>
+    } @else {
+      <h1 class="text-4xl font-semibold text-gray-700">Willkommen bei Nachhilfe25!</h1>
+    }
+    <p class="text-lg leading-relaxed mt-14">
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+      et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </p>
+  </div>
+  <div class="flex flex-col items-center">
+    <img src="nachhilfe.jpg" alt="Homepage" class="w-full max-w-2xl rounded-lg shadow-lg">
+    <div class="text-xs"> Foto von <a
+      href="https://unsplash.com/de/@thisisengineering?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">ThisisEngineering</a>
+      auf <a href="https://unsplash.com/de/fotos/frau-im-blauen-tanktop-steht-neben-weisser-wand-TXxiFuQLBKQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+    </div>
+  </div>
+</div>
+
+@if (isLoggedIn()) {
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full justify-items-center ">
+    <div class="bg-white shadow-md rounded-lg p-6 space-y-4 border border-gray-200">
+      <h2 class="text-2xl font-semibold text-gray-700">Angebot</h2>
+      <p *ngIf="!isTeacher()">
+        Hier kannst du alle verfügbaren Kurse einsehen – sortiert nach Fächern. In jedem Fach findest du einzelne Kurse
+        mit Beschreibung und möglichen Terminen.
+      </p>
+      <p *ngIf="isTeacher()">
+        Hier siehst du alle deine angelegten Fächer und Kurse. Du kannst hier neue Fächer anlegen und verwalten. Um einen Kurs anzulegen, bearbeite
+        das jeweilige Fach dazu und füge einen neuen Kurs hinzu. Die Termine für den Kurs kannst du dann in der Kurs-Detailansicht anlegen.
+      </p>
+      <a routerLink="../subjects" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded transition-colors">
+        Alle Fächer und Kurse ansehen
+      </a>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200 flex flex-col justify-between h-full">
+      <div class="space-y-4">
+        <h2 class="text-2xl font-semibold text-gray-700">Registrierungen</h2>
+        <p>Hier findest du eine Übersicht deiner bisherigen Kursanmeldungen sowie deren aktuellen Status.</p>
+      </div>
+      <div class="mt-6">
+        <a routerLink="../registrations" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded transition-colors text-center">
+          Alle Registrierungen
+        </a>
+      </div>
+    </div>
+
+  </div>
+}
+
+@else {
+  <div class="flex flex-col items-center text-center mb-32">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-8">Angebot</h2>
+    <p class="max-w-3xl">
+      Hier kannst du alle verfügbaren Kurse einsehen – sortiert nach Fächern. In jedem Fach findest du einzelne Kurse
+      mit Beschreibung und möglichen Terminen. Zum Buchen musst du <a routerLink="../login" class="text-emerald-600">angemeldet</a> sein.
+    </p>
+    <a routerLink="../subjects"
+       class="mt-4 inline-block w-auto max-w-max bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded transition-colors">
+      Alle Kurse ansehen
+    </a>
+  </div>
+
+  <h2 class="text-2xl font-semibold text-gray-700 mb-12 text-center">Personalisierte Nachhilfe mit 0 % Erfolgsrate</h2>
+
+  <div class="flex flex-row justify-center text-center align-center gap-8 mb-12">
+    <div class="bg-white shadow-md rounded-lg p-6 space-y-4 border border-gray-200">
+      <h2 class="text-2xl font-semibold text-gray-700">Nachhilfe in vielen Fächern</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren
+      </p>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 space-y-4 border border-gray-200">
+      <h2 class="text-2xl font-semibold text-gray-700">Nachhilfe in vielen Fächern</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren
+      </p>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 space-y-4 border border-gray-200">
+      <h2 class="text-2xl font-semibold text-gray-700">Nachhilfe in vielen Fächern</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+        et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        Stet clita kasd gubergren
+      </p>
+    </div>
+
+  </div>
+}
+
+
+
+
+
+
+
+
+
